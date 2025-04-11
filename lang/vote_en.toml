@@ -1,0 +1,9 @@
+module_vote = "Vote"
+
+##########
+# Create #
+##########
+mt_vote_create_poll = "Create Poll"
+md_vote_create_poll = "Create a new Poll and broadcast it."
+msg_poll_created = "Your Poll has been created."
+add_choice = "Add choice"
