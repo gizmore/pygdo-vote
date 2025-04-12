@@ -1,4 +1,5 @@
 module_vote = "Vote"
+poll_sidebar = "Poll: %s (%s)"
 
 ##########
 # Create #
@@ -7,3 +8,12 @@ mt_vote_create_poll = "Create Poll"
 md_vote_create_poll = "Create a new Poll and broadcast it."
 msg_poll_created = "Your Poll has been created."
 add_choice = "Add choice"
+
+#############
+# Vote Poll #
+#############
+choice = "Choice %d: %s"
+mt_vote_vote_poll = "Vote Poll"
+md_vote_vote_poll = "Vote for a poll."
+err_vote_max_chosen = "You may only select up to %d choices."
+msg_vote_voted_poll = "Your vote has been recorded."
