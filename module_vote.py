@@ -18,7 +18,6 @@ class module_vote(GDO_Module):
             GDT_UInt('vote_total_votes').initial('0').writable(False),
         ]
 
-
     def cfg_min_score(self) -> int:
         return self.get_config_value('vote_min_score')
 
