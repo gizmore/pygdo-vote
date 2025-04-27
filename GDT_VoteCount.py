@@ -10,6 +10,8 @@ class GDT_VoteCount(GDT_UInt):
 
     def __init__(self, name: str):
         super().__init__(name)
+        self.not_null()
+        self.initial('0')
 
     def gdo_with_votes(self) -> 'GDO|WithVotes':
         return self._gdo

@@ -1,1 +1,6 @@
-module_vote = "Vote"
+module_vote = "Votes"
+
+########
+# Vote #
+########
+msg_vote_voted = "Your vote for %s has been registered. %d votes with %.01f Stars of %d"

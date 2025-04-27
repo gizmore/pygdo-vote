@@ -7,14 +7,14 @@ from gdo.ui.GDT_Score import GDT_Score
 
 class module_vote(GDO_Module):
 
-    def gdo_classes(self):
-        return [
-        ]
+    def __init__(self):
+        super().__init__()
+        self._priority = 45
 
     def gdo_module_config(self) -> list[GDT]:
         return [
             GDT_Score('vote_min_score').initial('1'),
-            GDT_Score('vote_max_score').initial('5'),
+            GDT_Score('vote_max_score').initial('4'),
             GDT_UInt('vote_total_votes').initial('0').writable(False),
         ]
 

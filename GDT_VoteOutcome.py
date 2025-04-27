@@ -10,6 +10,8 @@ class GDT_VoteOutcome(GDT_Stars):
 
     def __init__(self, name: str):
         super().__init__(name)
+        self.initial('0')
+        self.not_null()
 
     def gdo(self, gdo: GDO):
         super().gdo(gdo)
@@ -22,6 +24,6 @@ class GDT_VoteOutcome(GDT_Stars):
 
     def refresh(self):
         gdo = self.gdo_with_votes()
-        average = float(gdo.gdo_votes_table().select('AVG(vote_score)').where(f"vote_item={gdo.get_id()}").exec(False).fetch_val())
-        gdo.set_val(self.get_name(), str(round(average, 1)))
+        average = gdo.gdo_votes_table().select('AVG(vote_score)').where(f"vote_item={gdo.get_id()}").exec(False).fetch_val()
+        gdo.set_val(self.get_name(), str(round(float(average), 1)))
         return self

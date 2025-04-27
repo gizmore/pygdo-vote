@@ -1,5 +1,4 @@
 from gdo.base.Application import Application
-from gdo.base.Events import Events
 from gdo.base.GDO import GDO
 from gdo.base.GDT import GDT
 from gdo.base.IPC import IPC
@@ -14,24 +13,22 @@ class MethodVote(WithVotes, Method):
         table = self.gdo_votes_table()
         return [
             table.column('vote_reason').copy_as('reason'),
-            GDT_Object('id').not_null().table(self.gdo_vote_object_table()),
             table.column('vote_score').copy_as('score').initial(str(table.gdo_max_vote_score())),
+            GDT_Object('id').not_null().table(self.gdo_vote_object_table()),
         ]
 
-    def get_vote_object(self) -> WithVotes|GDO:
+    def get_vote_object(self) -> GDO|WithVotes:
         return self.param_value('id')
 
     def gdo_execute(self):
         obj = self.get_vote_object()
         klass = self.gdo_votes_table()
-        klass.blank({
+        vote = klass.blank({
             'vote_item': obj.get_id(),
             'vote_score': self.param_val('score'),
             'vote_reason': self.param_val('reason'),
         }).soft_replace()
-        obj.recalc_votes()
-        Application.EVENTS.publish('vote_casted', obj)
-        vals = obj._vals
-        IPC.send('base.ipc_gdo', (obj.__class__.__name__, obj.get_id()))
-        return self.msg('msg_vote_voted', (obj.render_name(), obj.gdo_votes_total()))
+        obj.recalculate_votes()
+        Application.EVENTS.publish('vote_casted', obj, vote)
+        return self.msg('msg_vote_voted', (obj.render_name(), obj.get_votes_total(), obj.get_votes_score(), klass.table().gdo_max_vote_score()))
 
