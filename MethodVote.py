@@ -1,5 +1,8 @@
+from gdo.base.Application import Application
+from gdo.base.Events import Events
 from gdo.base.GDO import GDO
 from gdo.base.GDT import GDT
+from gdo.base.IPC import IPC
 from gdo.base.Method import Method
 from gdo.core.GDT_Object import GDT_Object
 from gdo.vote.WithVotes import WithVotes
@@ -20,10 +23,15 @@ class MethodVote(WithVotes, Method):
 
     def gdo_execute(self):
         obj = self.get_vote_object()
-        self.gdo_votes_table().blank({
+        klass = self.gdo_votes_table()
+        klass.blank({
             'vote_item': obj.get_id(),
             'vote_score': self.param_val('score'),
             'vote_reason': self.param_val('reason'),
         }).soft_replace()
+        obj.recalc_votes()
+        Application.EVENTS.publish('vote_casted', obj)
+        vals = obj._vals
+        IPC.send('base.ipc_gdo', (obj.__class__.__name__, obj.get_id()))
         return self.msg('msg_vote_voted', (obj.render_name(), obj.gdo_votes_total()))
 

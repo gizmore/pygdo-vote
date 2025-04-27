@@ -12,8 +12,8 @@ class GDT_Stars(GDT_Float):
 
     def __init__(self, name: str):
         super().__init__(name)
-        self.icon('star')
         self._mode = self.MODE_FULL
+        self.icon('star')
         self.min(1)
         self.max(4)
 
