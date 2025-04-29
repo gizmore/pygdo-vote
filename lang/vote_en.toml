@@ -1,5 +1,9 @@
 module_vote = "Votes"
 
+txt_vote_count = "Votes: %s"
+txt_vote_score = "Score: %.01f"
+
+
 ########
 # Vote #
 ########

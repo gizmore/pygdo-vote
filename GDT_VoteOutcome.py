@@ -1,4 +1,5 @@
 from gdo.base.GDO import GDO
+from gdo.base.Trans import t
 from gdo.vote.GDT_Stars import GDT_Stars
 
 from typing import TYPE_CHECKING
@@ -27,3 +28,10 @@ class GDT_VoteOutcome(GDT_Stars):
         average = gdo.gdo_votes_table().select('AVG(vote_score)').where(f"vote_item={gdo.get_id()}").exec(False).fetch_val()
         gdo.set_val(self.get_name(), str(round(float(average), 1)))
         return self
+
+    ##########
+    # Render #
+    ##########
+
+    def render_txt(self) -> str:
+        return t('txt_vote_score', (self.get_value()))
