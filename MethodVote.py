@@ -9,7 +9,7 @@ from gdo.vote.WithVotes import WithVotes
 
 class MethodVote(WithVotes, Method):
 
-    def gdo_parameters(self) -> [GDT]:
+    def gdo_parameters(self) -> list[GDT]:
         table = self.gdo_votes_table()
         return [
             table.column('vote_reason').copy_as('reason'),
