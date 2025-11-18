@@ -1,9 +1,9 @@
 <div class="gdt-form-field">
-    <label for="<%=field.get_name()%>"><%=field.render_label(Mode.HTML)%></label>
-    <div class="gdt-stars" data-max="<%=field.get_max()%>" data-min="<%=field.get_min()%>" aria-label="<%=field.render_label(Mode.HTML)%>">
+    <label for="<%=field.get_name()%>"><%=field.render_label(Mode.html)%></label>
+    <div class="gdt-stars" data-max="<%=field.get_max()%>" data-min="<%=field.get_min()%>" aria-label="<%=field.render_label(Mode.html)%>">
         <%
         for i in range(1, field.get_max()):
-        writeln(f'<span data-value="{i}">{GDT_Icon().icon('star').render(Mode.HTML)}</span>')
+        writeln(f'<span data-value="{i}">{GDT_Icon().icon('star').render(Mode.html)}</span>')
         %>
         <input type="hidden" name="<%=field.get_name()%>" value="<%=field.html_value()%>">
     </div>
