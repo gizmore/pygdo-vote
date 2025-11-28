@@ -20,7 +20,7 @@ class MethodVote(WithVotes, Method):
     def get_vote_object(self) -> GDO|WithVotes:
         return self.param_value('id')
 
-    def gdo_execute(self):
+    async def gdo_execute(self):
         obj = self.get_vote_object()
         klass = self.gdo_votes_table()
         vote = klass.blank({
@@ -29,6 +29,6 @@ class MethodVote(WithVotes, Method):
             'vote_reason': self.param_val('reason'),
         }).soft_replace()
         obj.recalculate_votes()
-        Application.EVENTS.publish('vote_casted', obj, vote)
+        await Application.EVENTS.publish('vote_casted', obj, vote)
         return self.msg('msg_vote_voted', (obj.render_name(), obj.get_votes_total(), obj.get_votes_score(), klass.table().gdo_max_vote_score()))
 
