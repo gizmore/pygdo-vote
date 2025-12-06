@@ -29,6 +29,6 @@ class GDO_VoteTable(WithVotes, GDO):
             GDT_Object('vote_item').primary().table(self.gdo_vote_object_table()).cascade_delete(),
             GDT_Creator('vote_creator').primary().cascade_delete(),
             GDT_String('vote_reason').maxlen(96),
-            GDT_Score('vote_score').min(self.gdo_min_vote_score()).max(self.gdo_max_vote_score()),
+            GDT_Score('vote_score').bytes(1).min(self.gdo_min_vote_score()).max(self.gdo_max_vote_score()),
             GDT_Created('vote_created'),
         ]
