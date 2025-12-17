@@ -8,7 +8,7 @@ class GDT_VoteResult(GDT_Decimal):
 
     def __init__(self, name: str):
         super().__init__(name)
-        self.digits(2, 1)
+        self.digits(2, 3)
 
     def table(self, table: GDO_VoteTable):
         self._table = table
